@@ -140,7 +140,9 @@ void cl_preparation(cl_context* context, cl_command_queue* queue, cl_program* pr
     *queue = clCreateCommandQueue(*context, device, 0, &err);
     err = clGetDeviceInfo(device, CL_DEVICE_NAME, MAX_DEVICE_NAME, deviceName, NULL);
     checkError(err,__LINE__);
-    //printf("## %d devices, running on %d: '%s'\n", numDevices, CURRENT_DEVICE, deviceName);
+    size_t maxwgs;
+    err = clGetDeviceInfo(device, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(maxwgs), &maxwgs, NULL);
+    printf("## %d devices, running on %d: '%s', MAX_WORK_GROUP_SIZE is %ld\n", numDevices, CURRENT_DEVICE, deviceName, maxwgs);
 
     // Read the kernel file from disk
     long sizeHeader, sizeSource;
