@@ -7,7 +7,9 @@
 #include <sys/time.h>
 #include <stdbool.h>
 
-#define ROWMAJOR true
+#include <CL/cl.h>
+
+#define ROWMAJOR false
 
 // =================================================================================================
 
@@ -46,4 +48,8 @@ float* mallocFloatMatrix(int m, int n);
 void setFloatMatrixItem(float* data, int Mrow, int Ncol, int mrow, int ncol, float value, bool rowMajor);
 float getFloatMatrixItem(float* data, int Mrow, int Ncol, int mrow, int ncol, bool rowMajor);
 void printFloatMatrix(float* data, int Mrow, int Ncol, bool rowMajor);
-void floatMatrixMultiple(float* a, float* b, float* c, int M, int N, int K, bool rowMajor);
+void floatMatrixMultiple(float* a, float* b, float* c, int M, int K, int N, bool rowMajor);
+
+//opencl related
+void cl_preparation(cl_context* context, cl_command_queue* queue, cl_program* program, const char* kernelpath);
+void checkError(cl_int error, int line);
