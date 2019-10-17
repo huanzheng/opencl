@@ -5,6 +5,9 @@
 #include <math.h>
 #include <time.h>
 #include <sys/time.h>
+#include <stdbool.h>
+
+#define ROWMAJOR true
 
 // =================================================================================================
 
@@ -36,3 +39,11 @@ double gflops(profile_t timer);
 
 // Other forward declarations
 char* readKernelFile(const char* filename, long* _size);
+
+
+// matrix related
+float* mallocFloatMatrix(int m, int n);
+void setFloatMatrixItem(float* data, int Mrow, int Ncol, int mrow, int ncol, float value, bool rowMajor);
+float getFloatMatrixItem(float* data, int Mrow, int Ncol, int mrow, int ncol, bool rowMajor);
+void printFloatMatrix(float* data, int Mrow, int Ncol, bool rowMajor);
+void floatMatrixMultiple(float* a, float* b, float* c, int M, int N, int K, bool rowMajor);
