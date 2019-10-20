@@ -9,7 +9,9 @@ __kernel void tiled(const int M, const int N, const int K,
     const int col = get_local_id(1); // Local col ID (max: TS)
     const int globalRow = TS*get_group_id(0) + row; // Row ID of C (0..M)
     const int globalCol = TS*get_group_id(1) + col; // Col ID of C (0..N)
- 
+    //const int globalRow = get_global_id(0);
+    //const int globalCol = get_global_id(1);
+
     // Local memory to fit a tile of TS*TS elements of A and B
     __local float Asub[TS][TS];
     __local float Bsub[TS][TS];

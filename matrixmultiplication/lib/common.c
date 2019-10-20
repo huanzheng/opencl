@@ -53,6 +53,7 @@ void floatMatrixMultiple(float* a, float* b, float* c, int M, int K, int N, bool
 	for (m = 0; m < M; m++) {
 		for (n = 0; n < N; n++) {
 			float* cAddr;
+			float value = 0;
 			if (rowMajor) {
 				cAddr = c + m*N + n;
 			} else {
@@ -61,11 +62,12 @@ void floatMatrixMultiple(float* a, float* b, float* c, int M, int K, int N, bool
 
 			for (k = 0; k < K; k++) {
 				if (rowMajor) {
-					*cAddr += (*(a + m*K + k)) * (*(b + k*N + n));
+					value += (*(a + m*K + k)) * (*(b + k*N + n));
 				} else {
-					*cAddr += (*(a + k*M + m)) * (*(b + n*K + k));
+					value += (*(a + k*M + m)) * (*(b + n*K + k));
 				}
 			}
+			*cAddr = value;
 		}
 	}
 	return;

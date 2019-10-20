@@ -8,9 +8,13 @@
 
 void testmatrixmultiple();
 void matrixMultipleInCL(float *A, float *B, float *C, int M, int K, int N);
+void checkmatrixmultiplewithprint(int m, int k, int n);
+void matrixMultipleInCPU(float *A, float* B, float* C, int M, int K, int N, bool rowMajor);
 
 int main() {
 	double t = timer();
+	//testmatrixmultiple();
+	checkmatrixmultiplewithprint(32,32,32);
 
 	int size = 1024;
 	for (size = 1024; size <=MAXSIZE; size=size*2) {
@@ -46,6 +50,32 @@ int main() {
 
 }
 
+void checkmatrixmultiplewithprint(int m, int k, int n) {
+	float *A = mallocFloatMatrix(m,k);
+        float *B = mallocFloatMatrix(k,n);
+        float *C1 = mallocFloatMatrix(m,n);
+        float *C = mallocFloatMatrix(m,n);
+
+        srand(time(NULL));
+        int i;
+
+        for(i = 0; i < m*k; i++) {
+	        A[i] = (float) rand() / (float) RAND_MAX;
+        }
+        for(i = 0; i < k*n; i++) {
+                B[i] = (float) rand() / (float) RAND_MAX;
+        }
+
+        printFloatMatrix(A, m, k, ROWMAJOR);
+        printFloatMatrix(B, k, n, ROWMAJOR);
+
+        matrixMultipleInCPU(A,B,C1,m,k,n,ROWMAJOR);
+        printFloatMatrix(C1, m, n, ROWMAJOR);
+
+        matrixMultipleInCL(A,B,C,m,k,n);
+	printFloatMatrix(C, m, n, ROWMAJOR);
+}
+
 void matrixMultipleInCPU(float *A, float* B, float* C, int M, int K, int N, bool rowMajor) {
 
 	double startTime=timer();
@@ -55,8 +85,7 @@ void matrixMultipleInCPU(float *A, float* B, float* C, int M, int K, int N, bool
 
 	double endTime = timer();
         double avgTime = (endTime-startTime)/NUM_RUNS;
-        printf("Matrix %dx%d * %dx%d -> %dx%d takes %.6f seconds to complete\n",M,K,K,N,M,N,avgTime);
-
+        printf("Matrix %dx%d * %dx%d -> %dx%d takes %.6f seconds to complete on CPU\n",M,K,K,N,M,N,avgTime);
 }
 
 
@@ -112,7 +141,7 @@ void matrixMultipleInCL(float *A, float *B, float *C, int M, int K, int N) {
     	}
 	double endTime = timer();
 	double avgTime = (endTime-startTime)/NUM_RUNS;
-	printf("Matrix %dx%d * %dx%d -> %dx%d takes %.6f seconds to complete\n",M,K,K,N,M,N,avgTime);
+	printf("Matrix %dx%d * %dx%d -> %dx%d takes %.6f seconds to complete on GPU\n",M,K,K,N,M,N,avgTime);
 
     	// End the timed loop
     	//timers[timerID].t += (timer() - startTime) / (double)NUM_RUNS;
@@ -136,18 +165,19 @@ void matrixMultipleInCL(float *A, float *B, float *C, int M, int K, int N) {
 
 
 void testmatrixmultiple() {
-	float* a= mallocFloatMatrix(2,3);
-	float* b = mallocFloatMatrix(3,2);
-	float* c = mallocFloatMatrix(2,2);
+	float* a= mallocFloatMatrix(3,3);
+	float* b = mallocFloatMatrix(3,3);
+	float* c = mallocFloatMatrix(3,3);
 	int i = 0;
-	for (i = 0; i<6; i++) {
-		*(a+i) = i;
-		*(b+i) = i;
+	for (i = 0; i<9; i++) {
+		*(a+i) = (float) rand() / (float) RAND_MAX;
+		*(b+i) = (float) rand() / (float) RAND_MAX;
 	}
 	bool rowmajor = false;
-	printFloatMatrix(a, 2, 3, rowmajor);
-	printFloatMatrix(b, 3, 2, rowmajor);
+	printFloatMatrix(a, 3, 3, rowmajor);
+	printFloatMatrix(b, 3, 3, rowmajor);
 
-	floatMatrixMultiple(a, b, c, 2, 3, 2, rowmajor);
-	printFloatMatrix(c, 2,2, rowmajor);
+	for (int j = 0; j < 100; j++)
+	floatMatrixMultiple(a, b, c, 3, 3, 3, rowmajor);
+	printFloatMatrix(c, 3,3, rowmajor);
 }
