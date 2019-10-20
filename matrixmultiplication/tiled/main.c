@@ -69,7 +69,7 @@ void matrixMultipleInCL(float *A, float *B, float *C, int M, int K, int N) {
 	cl_command_queue queue;
 	cl_program program;
 	
-	cl_preparation(&context, &queue, &program, "./naive.cl");
+	cl_preparation(&context, &queue, &program, "./tiled.cl");
 
 	// Prepare OpenCL memory objects
     	cl_mem bufA    = clCreateBuffer(context, CL_MEM_READ_ONLY,  M*K*sizeof(*A), NULL, &err);
@@ -84,7 +84,7 @@ void matrixMultipleInCL(float *A, float *B, float *C, int M, int K, int N) {
     	checkError(err,__LINE__);
 
     	char kernelname[100];
-    	sprintf(kernelname, "%s", "naive");
+    	sprintf(kernelname, "%s", "tiled");
     	cl_kernel kernel1 = clCreateKernel(program, kernelname, &err);
     	checkError(err,__LINE__);
 
