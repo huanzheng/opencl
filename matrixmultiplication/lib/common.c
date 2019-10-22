@@ -172,7 +172,7 @@ void cl_preparation(cl_context* context, cl_command_queue* queue, cl_program* pr
     err = clGetProgramBuildInfo(*program, device, CL_PROGRAM_BUILD_LOG, logSize, messages, NULL);
     checkError(err,__LINE__);
     messages[logSize] = '\0';
-    //if (logSize > 10) { printf("## Compiler message: %s\n", messages); }
+    if (logSize > 10) { printf("## Compiler message: %s\n", messages); }
     free(messages);
 
     /*
