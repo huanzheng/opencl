@@ -125,8 +125,8 @@ void matrixMultipleInCL(float *A, float *B, float *C, int M, int K, int N) {
         err = clSetKernelArg(kernel1, 5, sizeof(cl_mem), (void*)&bufC);
 
 	checkError(err,__LINE__);
-	const size_t local[2] = { TS, TS };
-        const size_t global[2] = { (size_t)M, (size_t)N };
+	const size_t local[2] = { TS, TS/WPT };
+        const size_t global[2] = { (size_t)M, (size_t)(N/WPT) };
 
 	// Start the timed loop
     	double startTime = timer();

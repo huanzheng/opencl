@@ -27,7 +27,7 @@
 //Matrix 4096x4096 * 4096x4096 -> 4096x4096 takes 0.281573 seconds to complete on GPU
 //WPT是2时，workgroupsize 是 16*(16/2)=128; workgroup有2个wavefront了，因此可以有memory latency hiding了。并且1个wavefront现在是包含住了64个workitem，比上面那个快了
 
-#define WPT 1                        // The amount of work-per-thread, i.e. the thread-coarsening factor
+//#define WPT 1                        // The amount of work-per-thread, i.e. the thread-coarsening factor
 //## 1 devices, running on 0: 'Ellesmere', MAX_WORK_GROUP_SIZE is 256
 //Matrix 1024x1024 * 1024x1024 -> 1024x1024 takes 0.003852 seconds to complete on GPU
 //## 1 devices, running on 0: 'Ellesmere', MAX_WORK_GROUP_SIZE is 256

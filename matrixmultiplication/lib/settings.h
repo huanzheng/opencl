@@ -21,7 +21,7 @@
 #define TS 16                        // The square-root of the 2D tile-size (== work-group dims)
 
 // Constants for kernels 3, 5
-#define WPT 8                        // The amount of work-per-thread, i.e. the thread-coarsening factor
+#define WPT 4                        // The amount of work-per-thread, i.e. the thread-coarsening factor
 #define RTS (TS/WPT)                 // The reduced tile-size in one dimension
 
 // Constants for kernels 4, 7 -- 10
