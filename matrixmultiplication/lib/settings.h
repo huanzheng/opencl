@@ -28,19 +28,19 @@
 #define WIDTH 4                      // The vector-width (in number of floats)
 
 // Constants for kernel 5
-#define TSDK 16                      // The tile-size in dimension K (for kernel 5 only)
-#define LPT ((TSDK*WPT)/(TS))        // The amount of loads-per-thread (assume TSN==TSM)
+//#define TSDK 16                      // The tile-size in dimension K (for kernel 5 only)
+//#define LPT ((TSDK*WPT)/(TS))        // The amount of loads-per-thread (assume TSN==TSM)
 
 // Constants for kernels 6 -- 10
-#define TSM 128                      // The tile-size in dimension M
-#define TSN 128                      // The tile-size in dimension N
-#define TSK 16                       // The tile-size in dimension K
-#define WPTM 8                       // The amount of work-per-thread in dimension M
-#define WPTN 8                       // The amount of work-per-thread in dimension N
-#define RTSM (TSM/WPTM)              // The reduced tile-size in dimension M (== number of threads)
-#define RTSN (TSN/WPTN)              // The reduced tile-size in dimension N (== number of threads)
-#define LPTA ((TSK*WPTM*WPTN)/(TSN)) // The amount of loads-per-thread for A
-#define LPTB ((TSK*WPTM*WPTN)/(TSM)) // The amount of loads-per-thread for B
+//#define TSM 128                      // The tile-size in dimension M
+//#define TSN 128                      // The tile-size in dimension N
+//#define TSK 16                       // The tile-size in dimension K
+//#define WPTM 8                       // The amount of work-per-thread in dimension M
+//#define WPTN 8                       // The amount of work-per-thread in dimension N
+//#define RTSM (TSM/WPTM)              // The reduced tile-size in dimension M (== number of threads)
+//#define RTSN (TSN/WPTN)              // The reduced tile-size in dimension N (== number of threads)
+//#define LPTA ((TSK*WPTM*WPTN)/(TSN)) // The amount of loads-per-thread for A
+//#define LPTB ((TSK*WPTM*WPTN)/(TSM)) // The amount of loads-per-thread for B
 
 // Constraints on settings for kernels 6 -- 10
 // Note: TSM/WPTM has to be integer
